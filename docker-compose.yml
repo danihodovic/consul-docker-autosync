@@ -1,0 +1,7 @@
+---
+version: '2.4'
+services:
+  consul:
+    image: hashicorp/consul
+    network_mode: host
+    command: consul agent -dev -enable-script-checks -client=0.0.0.0
