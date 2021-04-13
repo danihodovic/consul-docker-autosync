@@ -1,5 +1,4 @@
 # pylint: disable=too-many-locals
-import consul as consullib
 from loguru import logger
 
 
@@ -51,6 +50,8 @@ def check_from_labels(container):
     check = {
         "Interval": labels.get(f"{prefix}_INTERVAL", "15s"),
         "Timeout": labels.get(f"{prefix}_CHECK_TIMEOUT", "5s"),
+        # pylint: disable=line-too-long
+        "DeregisterCriticalServiceAfter": labels.get(f"{prefix}_DEREGISTER_CRITICAL_SERVICE_AFTER", "1h"),
     }
     if f"{prefix}_HTTP" in labels:
         return {
