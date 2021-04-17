@@ -1,6 +1,6 @@
 from threading import Thread
 
-from flask import Blueprint, Flask, current_app, request
+from flask import Blueprint, Flask
 from loguru import logger
 from waitress import serve
 

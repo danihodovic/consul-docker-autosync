@@ -21,6 +21,7 @@ mypy = "^0.812"
 pudb = "^2020.1"
 ptipython = "^1.0.1"
 requests = "^2.25.1"
+pytest-cov = "^2.11.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -28,3 +29,12 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 cli = "consul_docker_autosync.cli:run"
+
+[tool.black]
+skip_numeric_underscore_normalization = true
+exclude = ".*(venv|virtualenv|migrations|node_modules|s3)"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+skip = '.virtualenv,.venv'
