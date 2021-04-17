@@ -43,7 +43,7 @@ steps:
       - . .virtualenv/bin/activate
       - black . --check
       - isort --check-only .
-      - pylint src
+      - pylint consul_docker_autosync tests
       - pytest --cov
 
   - name: rebuild-cache
