@@ -68,7 +68,7 @@ def set_interval(func, sec):
         set_interval(func, sec)
         try:
             func()
-        except Exception as ex: # pylint: disable=broad-except
+        except Exception as ex:  # pylint: disable=broad-except
             logger.exception("Exception during execution, rescheduling sync")
 
     thread = threading.Timer(sec, func_wrapper)
