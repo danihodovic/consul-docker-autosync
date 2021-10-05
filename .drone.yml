@@ -7,9 +7,18 @@ volumes:
   - name: cache
     host:
       path: /tmp/drone-cache
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
 
 workspace:
-  path: /drone/dht/
+  path: /drone/
+
+services:
+  - name: consul
+    image: hashicorp/consul
+    command: [consul, agent, -dev, -enable-script-checks, -client=0.0.0.0]
+    ports: [8500]
 
 steps:
   - name: restore-cache
@@ -39,6 +48,11 @@ steps:
   - name: test
     depends_on: [install-dependencies]
     image: python:3.9.1
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      CONSUL_HOST: consul
     commands:
       - . .virtualenv/bin/activate
       - black . --check

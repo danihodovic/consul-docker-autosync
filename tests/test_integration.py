@@ -1,4 +1,5 @@
 # pylint: disable=invalid-name,redefined-outer-name
+import os
 import threading
 import time
 
@@ -13,12 +14,13 @@ from consul_docker_autosync.cli import run
 def run_threaded_cli(find_free_port):
     def fn(port=None):
         port = port or find_free_port()
+        consul_host = os.getenv("CONSUL_HOST", "localhost")
         f = lambda: CliRunner().invoke(
             run,
             [
                 f"--port={port}",
                 "--interval=0.5",
-                "--consul-url=http://localhost:8500",
+                f"--consul-url=http://{consul_host}:8500",
                 "--docker-url=unix://var/run/docker.sock",
             ],
         )

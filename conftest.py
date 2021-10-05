@@ -1,4 +1,6 @@
 # pylint: disable=redefined-outer-name
+import os
+
 import docker as dockerlib
 import pytest
 from consul import Consul
@@ -8,7 +10,7 @@ TEST_CONTAINER_TAG = "consul-docker-autosync"
 
 @pytest.fixture()
 def consul():
-    return Consul()
+    return Consul(host=os.getenv("CONSUL_HOST", "localhost"))
 
 
 @pytest.fixture()
